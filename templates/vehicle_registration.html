@@ -1,0 +1,39 @@
+{% extends "users_base.html" %}
+{% block user_content %}
+{% load static %}
+
+    <style>
+        body {
+            padding: 50px;
+        }
+        .form-container {
+            border: 1px solid #1c1a1a;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        h2{
+            color: rgb(238, 59, 32);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="form-container" align="center">
+                    <h2 class="mb-4" align="center">Vehicle Registration</h2>
+                    <hr>
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            {{ form.as_p }}
+                        </div>
+                        <button type="submit" class="btn btn-success">Submit</button>
+                       
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

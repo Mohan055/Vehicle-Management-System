@@ -1,0 +1,38 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+{% load static %}
+<style>
+  .container{
+    box-shadow: 3px 2px 3px 3px rgb(185, 232, 253);
+    margin-top: 100px;
+    height: 300px;
+    width: 50%;
+  }
+  h2{
+    margin-left: 50px;
+    margin-top: -10px;
+  }
+  button{
+    margin-left: 50px;
+    margin-top: -10px;
+  }
+</style>
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-4">
+        <br>
+        <h2>Login</h2>
+        <form method="POST">
+          {% csrf_token %}
+          {{ form.as_p }}
+          Create new account: <a href="{% url 'vmsapp:signup' %}"> Here</a><br>
+          <br>
+          <button type="submit" class="btn btn-outline-primary">Login</button>
+        </form>
+      </div>
+    </div>
+</div>
+
+{% endblock %}

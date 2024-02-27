@@ -1,0 +1,95 @@
+{% extends "users_base.html" %}
+{% block user_content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quality Check</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 50px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        select {
+            width: 100%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #0e0f0f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button[type="submit"]:hover {
+            background-color: #dbeaf9;
+            color: #0e0f0f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title" align="center">Quality Check</h2>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Vehicle Name:</strong> {{ vehicle.vehicle_name }}</p>
+                        <p><strong>Vehicle Number:</strong> {{ vehicle.vehicle_number }}</p>
+                        <p><strong>Vehicle Type:</strong> {{ vehicle.vehicle_type }}</p>
+                        <p><strong>Delivery Challan Number:</strong> {{ vehicle.delivery_challan_number }}</p>
+                        <p><strong>Purchase Order Number:</strong> {{ vehicle.purchase_order_number }}</p>
+                        <p><strong>Vehicle Image:</strong></p>
+                        <img src="{{ vehicle.vehicle_image.url }}" alt="{{ vehicle.vehicle_name }}" class="img-fluid">
+                        <p><strong>Date and Time:</strong> {{ vehicle.date_and_time }}</p>
+                        <p><strong>Checked Out:</strong> {% if vehicle.checked_out %}Yes{% else %}Not yet{% endif %}</p>
+                        <p><strong>Vendor:</strong> {% if vehicle.product %}{{ vehicle.product.vendor.name }}{% else %}No Vendor{% endif %}</p>
+                        <p><strong>Product:</strong> {% if vehicle.product %}{{ vehicle.product.name }} ({{ vehicle.product.quantity }}){% else %}No Product{% endif %}</p>
+                        <p><strong>Quality Check Status:</strong> {% if vehicle.quality_check %}{{ vehicle.quality_check.status }}{% else %}Not Checked{% endif %}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form method="post" class="mt-4">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="status" class="form-label">Status:</label>
+                <select name="status" id="status" class="form-select">
+                    <option value="Processing">Processing</option>
+                    <option value="Pass">Pass</option>
+                    <option value="Fail">Fail</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
+{% endblock %}

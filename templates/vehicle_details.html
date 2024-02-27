@@ -1,0 +1,96 @@
+{% extends "users_base.html" %}
+{% block user_content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 50px;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        .card {
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card-header {
+            background-color: #007bff;
+            color: white;
+            border-bottom: none;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .card-title {
+            font-size: 24px;
+            margin-bottom: 0;
+        }
+        .card-body {
+            padding: 20px;
+        }
+        .card-text {
+            font-size: 16px;
+        }
+        .btn {
+            width: 100%;
+        }
+        .card-img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header" style="background-color: rgb(53, 220, 15);">
+                        <h2 class="card-title">Vehicle Details</h2>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Vehicle Name: {{ vehicle.vehicle_name }}</p>
+                        <p class="card-text">Vehicle Number: {{ vehicle.vehicle_number }}</p>
+                        <p class="card-text">Vehicle Type: {{ vehicle.vehicle_type }}</p>
+                        <p class="card-text">Delivery Challan Number: {{ vehicle.delivery_challan_number }}</p>
+                        <p class="card-text">Purchase Order Number: {{ vehicle.purchase_order_number }}</p>
+                        <p class="card-text">Vehicle Image: <br><img src="{{ vehicle.vehicle_image.url }}" alt="{{ vehicle.vehicle_name }}" class="card-img"></p>
+                        <p class="card-text">Date and Time: {{ vehicle.date_and_time }}</p>
+                        <p class="card-text">Checked Out: {% if vehicle.checked_out %}Yes{% else %}Not yet{% endif %}</p>
+                        <p class="card-text">Vendor: {% if vehicle.product %}{{ vehicle.product.vendor.name }}{% else %}No Vendor{% endif %}</p>
+                        <p class="card-text">Product: {% if vehicle.product %}{{ vehicle.product.name }} ({{ vehicle.product.quantity }}){% else %}No Product{% endif %}</p>
+                        <p class="card-text">Quality Check Status: {% if vehicle.quality_check %}{{ vehicle.quality_check.status }}{% else %}Not Checked{% endif %}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-3">
+                <a href="{% url 'vmsapp:quality_check' vehicle_id=vehicle.pk %}" class="btn btn-info">Quality Check</a>
+            </div>
+            <div class="col-md-3">
+                <a href="{% url 'vmsapp:vehicle_checkout' vehicle_id=vehicle.pk %}" class="btn btn-warning">Check Out</a>
+            </div>
+            <div class="col-md-3">
+                <a href="{% url 'vmsapp:sd_dashboard' %}" class="btn btn-dark">Dashboard</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
+{% endblock %}
